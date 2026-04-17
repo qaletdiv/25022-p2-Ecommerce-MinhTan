@@ -410,81 +410,8 @@ const variants = [
 ];
 
 const users = [
-    {
-        id: "user-001",
-        email: "nguyen.thi.a@email.com",
-        password_hash: "$2b$10$hashedpassword1",
-        full_name: "Nguyễn Thị A",
-        phone: "0901234567",
-        avatar_url: "/images/avatars/user-001.jpg",
-        role: "customer",
-        is_active: true,
-        created_at: "2024-03-01T00:00:00Z",
-        last_login: "2024-06-15T08:30:00Z",
-    },
-    {
-        id: "user-002",
-        email: "tran.van.b@email.com",
-        password_hash: "$2b$10$hashedpassword2",
-        full_name: "Trần Văn B",
-        phone: "0912345678",
-        avatar_url: null,
-        role: "customer",
-        is_active: true,
-        created_at: "2024-03-15T00:00:00Z",
-        last_login: "2024-06-14T10:00:00Z",
-    },
-    {
-        id: "user-003",
-        email: "admin@cosmeticshop.vn",
-        password_hash: "$2b$10$hashedpassword3",
-        full_name: "Admin Shop",
-        phone: "0909999999",
-        avatar_url: null,
-        role: "admin",
-        is_active: true,
-        created_at: "2024-01-01T00:00:00Z",
-        last_login: "2024-06-16T09:00:00Z",
-    },
-];
-
-const addresses = [
-    {
-        id: "addr-001",
-        user_id: "user-001",
-        label: "Nhà",
-        full_name: "Nguyễn Thị A",
-        phone: "0901234567",
-        street: "123 Nguyễn Huệ",
-        district: "Quận 1",
-        city: "Thành phố Hồ Chí Minh",
-        province: "Hồ Chí Minh",
-        is_default: true,
-    },
-    {
-        id: "addr-002",
-        user_id: "user-001",
-        label: "Công ty",
-        full_name: "Nguyễn Thị A",
-        phone: "0901234567",
-        street: "456 Lê Lợi",
-        district: "Quận 3",
-        city: "Thành phố Hồ Chí Minh",
-        province: "Hồ Chí Minh",
-        is_default: false,
-    },
-    {
-        id: "addr-003",
-        user_id: "user-002",
-        label: "Nhà",
-        full_name: "Trần Văn B",
-        phone: "0912345678",
-        street: "78 Hoàn Kiếm",
-        district: "Quận Hoàn Kiếm",
-        city: "Hà Nội",
-        province: "Hà Nội",
-        is_default: true,
-    },
+    { id: 1, username: "minhtan111293", email: "minhtan111293@gmail.com", password: "123", role: "admin" },
+    { id: 2, username: "ty", email: "ty@gmail.com", password: "123", role: "user" }
 ];
 
 // Lấy tất cả danh mục
@@ -492,11 +419,12 @@ app.get('/api/categories', (req, res) => {
     res.json(categories);
 });
 
-// Lấy tất cả sản phẩm kèm tên danh mục
+// Lấy tất cả sản phẩm kèm tên danh mục và variants
 app.get('/api/products', (req, res) => {
     const productsWithCategory = products.map(product => {
         const category = categories.find(cat => cat.id === product.category_id);
-        return { ...product, category_name: category ? category.name : null };
+        const productVariants = variants.filter(v => v.product_id === product.id);
+        return { ...product, category_name: category ? category.name : null, variants: productVariants };
     });
     res.json(productsWithCategory);
 });
@@ -512,14 +440,18 @@ app.get('/api/products/:slug', (req, res) => {
     res.json({ ...product, category_name: category ? category.name : null, variants: productVariants });
 });
 
-// Lấy sản phẩm liên quan dựa vào slug
+// Lấy sản phẩm liên quan dựa vào slug kèm variants
 app.get('/api/productsrelated/:slug', (req, res) => {
     const product = products.find(p => p.slug === req.params.slug);
     if (!product) {
         return res.status(404).json({ message: 'Product not found' });
     }
     const relatedProducts = products.filter(p => p.category_id === product.category_id && p.slug !== product.slug);
-    res.json(relatedProducts);
+    const relatedProductsWithVariants = relatedProducts.map(p => {
+        const productVariants = variants.filter(v => v.product_id === p.id);
+        return { ...p, variants: productVariants };
+    });
+    res.json(relatedProductsWithVariants);
 });
 
 // Middleware xác thực JWT
@@ -541,24 +473,38 @@ const authenticateJWT = (req, res, next) => {
 
 // API Đăng ký (Signup)
 app.post('/api/signup', (req, res) => {
-    const { username, password } = req.body;
-    if (users.find(user => user.username === username)) {
-        return res.status(409).json({ message: 'Username already exists' });
+    const { username, email, password } = req.body;
+    if (users.find(user => user.email === email)) {
+        return res.status(409).json({ message: 'Email already exists' });
     }
-    const newUser = { username, password };
+    const newUser = { username, email, password, role: 'user' };
     users.push(newUser);
     res.status(201).json({ message: 'User registered successfully' });
 });
 
 // API Đăng nhập (Login)
 app.post('/api/login', (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find(user => user.username === username);
+    const { email, password } = req.body;
+    const user = users.find(user => user.email === email);
+    console.log('Login attempt:', email, password);
     if (!user || user.password !== password) {
-        return res.status(401).json({ message: 'Invalid username or password' });
+        return res.status(401).json({ message: 'Invalid email or password' });
     }
-    const accessToken = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '1h' });
-    res.json({ accessToken });
+    req.user = user;
+    const accessToken = jwt.sign({ username: user.username, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token: accessToken, user: { username: user.username, email: user.email, role: user.role } });
+});
+
+app.get('/api/profile', authenticateJWT, (req, res) => {
+    res.json({ username: req.user.username, email: req.user.email, role: req.user.role });
+});
+
+// Lấy tất cả users (chỉ dành cho admin)
+app.get('/api/users', authenticateJWT, (req, res) => {
+    if (req.user.role !== 'admin') {
+        return res.sendStatus(403);
+    }
+    res.json(users);
 });
 
 app.listen(port, () => {
