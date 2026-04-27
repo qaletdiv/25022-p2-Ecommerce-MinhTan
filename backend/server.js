@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 app.use(cors());
 app.use(express.json());
+app.use('/images', express.static('public/images'));
 // Mã JWT Secret Key
 const JWT_SECRET = 'LETDIV_BACKEND';
 // Mô phỏng Database người dùng với dữ liệu mẫu
@@ -44,8 +45,7 @@ const products = [
         description:
             "Kem dưỡng ẩm chuyên sâu với công nghệ Water Science™, cấp nước liên tục 24 giờ, phù hợp da thường đến da hỗn hợp.",
         images: [
-            "/images/products/prod-001-1.jpg",
-            "/images/products/prod-001-2.jpg",
+            "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg",
         ],
         tags: ["dưỡng ẩm", "hàn quốc", "hyaluronic acid"],
         base_price: 890000,
@@ -65,8 +65,7 @@ const products = [
         description:
             "Serum dưỡng sáng với 77% Galactomyces và Vitamin C thuần, giúp mờ thâm, đều màu da sau 4 tuần.",
         images: [
-            "/images/products/prod-002-1.jpg",
-            "/images/products/prod-002-2.jpg",
+            "http://localhost:3000/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg",
         ],
         tags: ["serum", "vitamin c", "dưỡng sáng", "hàn quốc"],
         base_price: 350000,
@@ -86,8 +85,7 @@ const products = [
         description:
             "Toner không mùi dịu nhẹ, cân bằng độ pH, tăng cường hàng rào bảo vệ da, phù hợp da nhạy cảm.",
         images: [
-            "/images/products/prod-003-1.jpg",
-            "/images/products/prod-003-2.jpg",
+            "http://localhost:3000/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg",
         ],
         tags: ["toner", "da nhạy cảm", "không mùi", "hàn quốc"],
         base_price: 420000,
@@ -107,8 +105,7 @@ const products = [
         description:
             "Kem chống nắng SPF50+ PA++++ dạng sữa, chống nước, chống mồ hôi, bảo vệ tối đa dưới nắng hè.",
         images: [
-            "/images/products/prod-004-1.jpg",
-            "/images/products/prod-004-2.jpg",
+            "http://localhost:3000/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg",
         ],
         tags: ["chống nắng", "spf50+", "nhật bản", "chống nước"],
         base_price: 620000,
@@ -128,8 +125,7 @@ const products = [
         description:
             "Sữa rửa mặt dịu nhẹ với Ceramide và Hyaluronic Acid, làm sạch không làm mất ẩm, được bác sĩ da liễu khuyên dùng.",
         images: [
-            "/images/products/prod-005-1.jpg",
-            "/images/products/prod-005-2.jpg",
+            "http://localhost:3000/images/skincare/sua-rua-mat-cerave-hydrating-cleanser-236ml.jpg",
         ],
         tags: ["sữa rửa mặt", "ceramide", "da khô", "mỹ"],
         base_price: 290000,
@@ -149,8 +145,7 @@ const products = [
         description:
             "Mặt nạ đất sét núi lửa giúp loại bỏ bã nhờn, thu nhỏ lỗ chân lông, làm sạch sâu chỉ trong 10 phút.",
         images: [
-            "/images/products/prod-006-1.jpg",
-            "/images/products/prod-006-2.jpg",
+            "http://localhost:3000/images/skincare/mat-na-dat-set-innisfree-8.jpg",
         ],
         tags: ["mặt nạ", "đất sét", "lỗ chân lông", "hàn quốc"],
         base_price: 250000,
@@ -170,8 +165,7 @@ const products = [
         description:
             "Essence nước thần huyền thoại với 90% Pitera™, giúp tái tạo da, mờ thâm nám và căng bóng rạng rỡ.",
         images: [
-            "/images/products/prod-007-1.jpg",
-            "/images/products/prod-007-2.jpg",
+            "http://localhost:3000/images/skincare/nuoc-than-skii-230ml_3503993879544c3387c27305bad0d396.png",
         ],
         tags: ["essence", "pitera", "cao cấp", "nhật bản"],
         base_price: 2800000,
@@ -191,8 +185,7 @@ const products = [
         description:
             "Dung dịch chứa 5% Caffeine và EGCG giúp giảm quầng thâm, bọng mắt và dấu hiệu mệt mỏi quanh vùng mắt.",
         images: [
-            "/images/products/prod-008-1.jpg",
-            "/images/products/prod-008-2.jpg",
+            "http://localhost:3000/images/skincare/TO-7.3.jpg",
         ],
         tags: ["kem mắt", "caffeine", "quầng thâm", "canada"],
         base_price: 310000,
@@ -212,8 +205,7 @@ const products = [
         description:
             "Son kem lì siêu mịn, không khô môi, lên màu chuẩn chỉ với một lớp, bền màu suốt 8 tiếng.",
         images: [
-            "/images/products/prod-009-1.jpg",
-            "/images/products/prod-009-2.jpg",
+            "http://localhost:3000/images/cosmetics/Son-Black-Rouge-A06.jpg",
         ],
         tags: ["son môi", "lì", "lâu trôi", "hàn quốc"],
         base_price: 185000,
@@ -233,8 +225,7 @@ const products = [
         description:
             "Cushion lì kiểm soát dầu, che phủ hoàn hảo, giữ lớp trang điểm bền vẹn cả ngày dài trong thời tiết nóng ẩm.",
         images: [
-            "/images/products/prod-010-1.jpg",
-            "/images/products/prod-010-2.jpg",
+            "http://localhost:3000/images/cosmetics/_hq__neo_social-cut_04_specs_1st__1080_1080__240530_1.webp",
         ],
         tags: ["cushion", "lì", "kiểm soát dầu", "hàn quốc"],
         base_price: 760000,
@@ -254,8 +245,7 @@ const products = [
         description:
             "Mascara chống nước với cọ uốn cong độc đáo, tạo mi dài và cong vút từ gốc tới ngọn không vón cục.",
         images: [
-            "/images/products/prod-011-1.jpg",
-            "/images/products/prod-011-2.jpg",
+            "http://localhost:3000/images/cosmetics/lash-sensational-sky-high-mascara_1.webp",
         ],
         tags: ["mascara", "chống nước", "dài mi", "mỹ"],
         base_price: 220000,
@@ -275,8 +265,7 @@ const products = [
         description:
             "Phấn phủ dạng bột mịn tạo hiệu ứng ánh sáng tự nhiên, cố định lớp nền, kiểm soát dầu nhẹ nhàng suốt cả ngày.",
         images: [
-            "/images/products/prod-012-1.jpg",
-            "/images/products/prod-012-2.jpg",
+            "http://localhost:3000/images/cosmetics/a5a548c0-a308-11ea-a25e-1fe2302d1d5c.png",
         ],
         tags: ["phấn phủ", "bột", "kiểm soát dầu", "cao cấp"],
         base_price: 1150000,
@@ -296,8 +285,7 @@ const products = [
         description:
             "Kem nền lì với 50+ tông màu, độ che phủ vừa đến cao, kiểm soát dầu 24 giờ, không tắc lỗ chân lông.",
         images: [
-            "/images/products/prod-013-1.jpg",
-            "/images/products/prod-013-2.jpg",
+            "http://localhost:3000/images/cosmetics/D_anm_i-196_d1b81d98-1c3b-4ec5-8a2e-10b3d2b3fcaa.webp",
         ],
         tags: ["kem nền", "lì", "50 shade", "che phủ cao"],
         base_price: 980000,
@@ -317,8 +305,7 @@ const products = [
         description:
             "Bảng 35 màu mắt tông đất, kết hợp màu matte và nhũ, dễ pha trộn, phù hợp từ trang điểm nhẹ nhàng đến khói.",
         images: [
-            "/images/products/prod-014-1.jpg",
-            "/images/products/prod-014-2.jpg",
+            "http://localhost:3000/images/cosmetics/b2e13e5f-7dea-4a4f-8e8f-5fef30e759af.webp",
         ],
         tags: ["mắt", "bảng phấn", "tông đất", "35 màu"],
         base_price: 650000,
@@ -338,8 +325,7 @@ const products = [
         description:
             "Highlight dạng nén với hiệu ứng ánh ngọc trai mịn màng, tạo vùng sáng tự nhiên không bị glitter thô.",
         images: [
-            "/images/products/prod-015-1.jpg",
-            "/images/products/prod-015-2.jpg",
+            "http://localhost:3000/images/cosmetics/phan-bat-sang-highlight-smashbox-x-becca-shimmering-skin-perfector-mau-moonstone-64ccaf1378b26-04082023145603.webp",
         ],
         tags: ["highlight", "ánh ngọc trai", "contouring", "cao cấp"],
         base_price: 820000,
@@ -359,8 +345,7 @@ const products = [
         description:
             "Phấn má hồng tông nude hồng nhẹ nhàng, kết hợp shimmer mịn giúp da ửng hồng tự nhiên và rạng rỡ cả ngày.",
         images: [
-            "/images/products/prod-016-1.jpg",
-            "/images/products/prod-016-2.jpg",
+            "http://localhost:3000/images/cosmetics/455063135-2804805279676433-5304769177919792876-n.webp",
         ],
         tags: ["má hồng", "nude", "tự nhiên", "mỹ"],
         base_price: 720000,
@@ -505,6 +490,24 @@ app.get('/api/users', authenticateJWT, (req, res) => {
         return res.sendStatus(403);
     }
     res.json(users);
+});
+
+// Cập nhật vai trò người dùng (chỉ dành cho admin)
+app.patch('/api/users/:id/role', authenticateJWT, (req, res) => {
+    if (req.user.role !== 'admin') {
+        return res.sendStatus(403);
+    }
+    const userId = parseInt(req.params.id, 10);
+    const { role } = req.body;
+    if (!['admin', 'user'].includes(role)) {
+        return res.status(400).json({ message: 'Invalid role' });
+    }
+    const user = users.find(u => u.id === userId);
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+    user.role = role;
+    res.json({ id: user.id, username: user.username, email: user.email, role: user.role });
 });
 
 app.listen(port, () => {
