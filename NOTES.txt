@@ -1,0 +1,9 @@
+- Tự fill name address phone khi tạo profile
+- Chọn địa chỉ giao hàng
+- Mã coupon - Thanh toán
+ + Public coupon
+ + Private coupon
+ + Xài nhìu coupon
+ + one time coupon
+- Phí vận chuyển - cố định 30K, nội thành, ngoại thành
+- Phân trang API

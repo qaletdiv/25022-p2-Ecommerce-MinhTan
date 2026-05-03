@@ -12,6 +12,83 @@ const JWT_SECRET = 'LETDIV_BACKEND';
 // Mô phỏng Database người dùng với dữ liệu mẫu
 // db.js
 
+const orders = [
+    {
+        "id": "ORD-MOPXTKHZ",
+        "date": "2026-05-03T15:40:47.495Z",
+        "items": [
+            {
+                "productName": "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
+                "variantName": "50ml",
+                "shade": null,
+                "quantity": 12,
+                "price": 890000,
+                "image": "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg"
+            },
+            {
+                "productName": "Serum Vitamin C Some By Mi Galactomyces Pure Vitamin C Glow",
+                "variantName": "30ml",
+                "shade": null,
+                "quantity": 2,
+                "price": 350000,
+                "image": "http://localhost:3000/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg"
+            },
+            {
+                "productName": "Toner Klairs Supple Preparation Unscented",
+                "variantName": "180ml",
+                "shade": null,
+                "quantity": 1,
+                "price": 420000,
+                "image": "http://localhost:3000/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg"
+            },
+            {
+                "productName": "Kem Chống Nắng Anessa Perfect UV Sunscreen Skincare Milk",
+                "variantName": "60ml",
+                "shade": null,
+                "quantity": 1,
+                "price": 620000,
+                "image": "http://localhost:3000/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg"
+            }
+        ],
+        "shippingInfo": {
+            "name": "Tan",
+            "phone": "0867052405",
+            "address": "HCM",
+            "note": ""
+        },
+        "paymentMethod": "vnpay",
+        "subtotal": 12420000,
+        "shipping": 0,
+        "total": 12420000,
+        "status": "Chờ xác nhận"
+    },
+    {
+        "id": "ORD-ABC12345",
+        "date": "2026-05-01T10:20:30.000Z",
+        "items": [
+            {
+                "productName": "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
+                "variantName": "50ml",
+                "shade": null,
+                "quantity": 12,
+                "price": 890000,
+                "image": "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg"
+            }
+        ],
+        "shippingInfo": {
+            "name": "Tan",
+            "phone": "0867052405",
+            "address": "HCM",
+            "note": ""
+        },
+        "paymentMethod": "vnpay",
+        "subtotal": 12420000,
+        "shipping": 0,
+        "total": 12420000,
+        "status": "Chờ xác nhận"
+    }
+];
+
 const categories = [
     {
         id: "cat-001",
@@ -508,6 +585,74 @@ app.patch('/api/users/:id/role', authenticateJWT, (req, res) => {
     }
     user.role = role;
     res.json({ id: user.id, username: user.username, email: user.email, role: user.role });
+});
+
+// Lấy tất cả đơn hàng (chỉ dành cho admin)
+app.get('/api/orders', authenticateJWT, (req, res) => {
+    if (req.user.role !== 'admin') {
+        return res.sendStatus(403);
+    }
+    res.json(orders);
+});
+
+// Thêm đơn hàng mới (dành cho người dùng đã đăng nhập)
+app.post('/api/orders', authenticateJWT, (req, res) => {
+    const { items, total_price } = req.body;
+    if (!items || !total_price) {
+        return res.status(400).json({ message: 'Items and total price are required' });
+    }
+    //     {
+    //     "id": "ORD-MOPXTKHZ",
+    //     "date": "2026-05-03T15:40:47.495Z",
+    //     "items": [
+    //         {
+    //             "productName": "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
+    //             "variantName": "50ml",
+    //             "shade": null,
+    //             "quantity": 12,
+    //             "price": 890000,
+    //             "image": "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg"
+    //         },
+    //         {
+    //             "productName": "Serum Vitamin C Some By Mi Galactomyces Pure Vitamin C Glow",
+    //             "variantName": "30ml",
+    //             "shade": null,
+    //             "quantity": 2,
+    //             "price": 350000,
+    //             "image": "http://localhost:3000/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg"
+    //         },
+    //         {
+    //             "productName": "Toner Klairs Supple Preparation Unscented",
+    //             "variantName": "180ml",
+    //             "shade": null,
+    //             "quantity": 1,
+    //             "price": 420000,
+    //             "image": "http://localhost:3000/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg"
+    //         },
+    //         {
+    //             "productName": "Kem Chống Nắng Anessa Perfect UV Sunscreen Skincare Milk",
+    //             "variantName": "60ml",
+    //             "shade": null,
+    //             "quantity": 1,
+    //             "price": 620000,
+    //             "image": "http://localhost:3000/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg"
+    //         }
+    //     ],
+    //     "shippingInfo": {
+    //         "name": "Tan",
+    //         "phone": "0867052405",
+    //         "address": "HCM",
+    //         "note": ""
+    //     },
+    //     "paymentMethod": "vnpay",
+    //     "subtotal": 12420000,
+    //     "shipping": 0,
+    //     "total": 12420000,
+    //     "status": "Chờ xác nhận"
+    // }
+    const order = { id: `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`, date: new Date(), items, total_price, user_email: req.user.email, status: 'Chờ xác nhận' };
+    orders.push(order);
+    res.status(201).json({ message: 'Order created successfully', order });
 });
 
 app.listen(port, () => {
