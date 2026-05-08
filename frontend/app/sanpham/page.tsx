@@ -20,8 +20,8 @@ export default async function SanPham({ searchParams }: { searchParams: Promise<
     const { q, category, minPrice, maxPrice, sort, page } = await searchParams;
 
     const [productsRes, categoriesRes] = await Promise.all([
-        fetch('http://localhost:3000/api/products'),
-        fetch('http://localhost:3000/api/categories'),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`),
     ]);
     const allProducts: Product[] = await productsRes.json();
     const categories: Category[] = await categoriesRes.json();

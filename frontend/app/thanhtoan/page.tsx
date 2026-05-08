@@ -46,7 +46,7 @@ export default function ThanhToan() {
         if (cartItems.length === 0) { setLoading(false); return; }
         const load = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/products');
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
                 const products: Product[] = await res.json();
                 const resolved: DisplayItem[] = [];
                 for (const item of cartItems) {
@@ -98,7 +98,7 @@ export default function ThanhToan() {
             total,
             status: 'Chờ xác nhận',
         };
-        fetch('http://localhost:3000/api/orders', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

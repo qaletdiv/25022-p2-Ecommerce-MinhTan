@@ -3,7 +3,7 @@ import { Product } from '../../types/product';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 export default async function Products() {
-    const data = await fetch('http://localhost:3000/api/products');
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
     const products: Product[] = await data.json();
 
     return (

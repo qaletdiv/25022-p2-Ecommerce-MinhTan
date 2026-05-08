@@ -3,7 +3,7 @@ import type { Category } from '../../types/category';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 export default async function Category() {
-    const data = await fetch('http://localhost:3000/api/categories');
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
     const categories: Category[] = await data.json();
 
     return (

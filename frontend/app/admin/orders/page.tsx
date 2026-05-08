@@ -22,7 +22,7 @@ export default function Orders() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/orders', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
             headers: { Authorization: `Bearer ${getToken()}` }
         })
             .then(r => r.json())

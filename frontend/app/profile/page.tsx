@@ -10,7 +10,7 @@ export default async function Profile() {
         redirect('/login?from=/profile');
     }
 
-    const res = await fetch('http://localhost:3000/api/profile', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },
         cache: 'no-store',
     });
@@ -21,7 +21,7 @@ export default async function Profile() {
 
     const user = await res.json();
 
-    const ordersRes = await fetch('http://localhost:3000/api/orders', {
+    const ordersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
         headers: { Authorization: `Bearer ${token}` },
         cache: 'no-store',
     });

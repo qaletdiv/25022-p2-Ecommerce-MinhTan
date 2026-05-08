@@ -34,7 +34,7 @@ export default function Register() {
     const onSubmit = async (data: RegisterFormData) => {
         setServerError(null);
         try {
-            const response = await fetch('http://localhost:3000/api/signup', {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),

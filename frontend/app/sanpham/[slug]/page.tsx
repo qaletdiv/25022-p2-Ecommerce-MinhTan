@@ -23,7 +23,7 @@ export default function ProductDetailPage() {
 
         const fetchData = async () => {
             try {
-                const productData = await fetch(`http://localhost:3000/api/products/${slug}`);
+                const productData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`);
                 const productJson: Product = await productData.json();
 
                 if (!productJson?.id) {
@@ -35,7 +35,7 @@ export default function ProductDetailPage() {
                 setProduct(productJson);
 
                 try {
-                    const relatedData = await fetch(`http://localhost:3000/api/productsrelated/${slug}`);
+                    const relatedData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/productsrelated/${slug}`);
                     const relatedJson: Product[] = await relatedData.json();
                     setRelatedProducts(relatedJson);
                 } catch {

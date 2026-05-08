@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest) {
         const token = request.cookies.get('access_token')?.value;
 
         if (token) {
-            const user = await fetch('http://localhost:3000/api/profile', {
+            const user = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

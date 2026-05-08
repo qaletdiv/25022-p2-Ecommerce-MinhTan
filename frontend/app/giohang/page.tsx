@@ -39,7 +39,7 @@ export default function GioHang() {
 
         const fetchProducts = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/products');
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
                 const products: Product[] = await res.json();
 
                 const resolved: CartDisplayItem[] = [];

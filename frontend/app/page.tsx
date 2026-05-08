@@ -4,7 +4,7 @@ import Slideshow from "./components/slideShow";
 import Link from "next/link";
 
 export default async function Home() {
-  const data = await fetch('http://localhost:3000/api/products');
+  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
   const products: Product[] = await data.json();
 
   const productByCategory1 = products.filter(p => p.category_id === 'cat-001' && p.is_featured);

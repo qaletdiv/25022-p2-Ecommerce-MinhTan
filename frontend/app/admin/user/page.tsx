@@ -16,7 +16,7 @@ export default function Users() {
     const [updating, setUpdating] = useState<number | null>(null);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/users', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
             headers: { Authorization: `Bearer ${getToken()}` }
         })
             .then(r => r.json())
@@ -27,7 +27,7 @@ export default function Users() {
         const newRole = currentRole === 'admin' ? 'user' : 'admin';
         setUpdating(userId);
         try {
-            const res = await fetch(`http://localhost:3000/api/users/${userId}/role`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}/role`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
