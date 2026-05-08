@@ -1,92 +1,98 @@
 // server.js
-const express = require('express');
-const cors = require('cors');
-const jwt = require('jsonwebtoken');
+const express = require("express");
+const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const app = express();
 const port = 3000;
 app.use(cors());
 app.use(express.json());
-app.use('/images', express.static('public/images'));
+app.use("/images", express.static("public/images"));
 // Mã JWT Secret Key
-const JWT_SECRET = 'LETDIV_BACKEND';
+const JWT_SECRET = "LETDIV_BACKEND";
 // Mô phỏng Database người dùng với dữ liệu mẫu
 // db.js
 
 const orders = [
     {
-        "id": "ORD-MOPXTKHZ",
-        "date": "2026-05-03T15:40:47.495Z",
-        "items": [
+        id: "ORD-MOPXTKHZ",
+        date: "2026-05-03T15:40:47.495Z",
+        items: [
             {
-                "productName": "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
-                "variantName": "50ml",
-                "shade": null,
-                "quantity": 12,
-                "price": 890000,
-                "image": "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg"
+                productName: "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
+                variantName: "50ml",
+                shade: null,
+                quantity: 12,
+                price: 890000,
+                image:
+                    "https://cosmetics-production-e502.up.railway.app/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg",
             },
             {
-                "productName": "Serum Vitamin C Some By Mi Galactomyces Pure Vitamin C Glow",
-                "variantName": "30ml",
-                "shade": null,
-                "quantity": 2,
-                "price": 350000,
-                "image": "http://localhost:3000/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg"
+                productName:
+                    "Serum Vitamin C Some By Mi Galactomyces Pure Vitamin C Glow",
+                variantName: "30ml",
+                shade: null,
+                quantity: 2,
+                price: 350000,
+                image:
+                    "https://cosmetics-production-e502.up.railway.app/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg",
             },
             {
-                "productName": "Toner Klairs Supple Preparation Unscented",
-                "variantName": "180ml",
-                "shade": null,
-                "quantity": 1,
-                "price": 420000,
-                "image": "http://localhost:3000/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg"
+                productName: "Toner Klairs Supple Preparation Unscented",
+                variantName: "180ml",
+                shade: null,
+                quantity: 1,
+                price: 420000,
+                image:
+                    "https://cosmetics-production-e502.up.railway.app/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg",
             },
             {
-                "productName": "Kem Chống Nắng Anessa Perfect UV Sunscreen Skincare Milk",
-                "variantName": "60ml",
-                "shade": null,
-                "quantity": 1,
-                "price": 620000,
-                "image": "http://localhost:3000/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg"
-            }
+                productName: "Kem Chống Nắng Anessa Perfect UV Sunscreen Skincare Milk",
+                variantName: "60ml",
+                shade: null,
+                quantity: 1,
+                price: 620000,
+                image:
+                    "https://cosmetics-production-e502.up.railway.app/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg",
+            },
         ],
-        "shippingInfo": {
-            "name": "Tan",
-            "phone": "0867052405",
-            "address": "HCM",
-            "note": ""
+        shippingInfo: {
+            name: "Tan",
+            phone: "0867052405",
+            address: "HCM",
+            note: "",
         },
-        "paymentMethod": "vnpay",
-        "subtotal": 12420000,
-        "shipping": 0,
-        "total": 12420000,
-        "status": "Chờ xác nhận"
+        paymentMethod: "vnpay",
+        subtotal: 12420000,
+        shipping: 0,
+        total: 12420000,
+        status: "Chờ xác nhận",
     },
     {
-        "id": "ORD-ABC12345",
-        "date": "2026-05-01T10:20:30.000Z",
-        "items": [
+        id: "ORD-ABC12345",
+        date: "2026-05-01T10:20:30.000Z",
+        items: [
             {
-                "productName": "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
-                "variantName": "50ml",
-                "shade": null,
-                "quantity": 12,
-                "price": 890000,
-                "image": "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg"
-            }
+                productName: "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
+                variantName: "50ml",
+                shade: null,
+                quantity: 12,
+                price: 890000,
+                image:
+                    "https://cosmetics-production-e502.up.railway.app/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg",
+            },
         ],
-        "shippingInfo": {
-            "name": "Tan",
-            "phone": "0867052405",
-            "address": "HCM",
-            "note": ""
+        shippingInfo: {
+            name: "Tan",
+            phone: "0867052405",
+            address: "HCM",
+            note: "",
         },
-        "paymentMethod": "vnpay",
-        "subtotal": 12420000,
-        "shipping": 0,
-        "total": 12420000,
-        "status": "Chờ xác nhận"
-    }
+        paymentMethod: "vnpay",
+        subtotal: 12420000,
+        shipping: 0,
+        total: 12420000,
+        status: "Chờ xác nhận",
+    },
 ];
 
 const categories = [
@@ -122,7 +128,7 @@ const products = [
         description:
             "Kem dưỡng ẩm chuyên sâu với công nghệ Water Science™, cấp nước liên tục 24 giờ, phù hợp da thường đến da hỗn hợp.",
         images: [
-            "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg",
         ],
         tags: ["dưỡng ẩm", "hàn quốc", "hyaluronic acid"],
         base_price: 890000,
@@ -142,7 +148,7 @@ const products = [
         description:
             "Serum dưỡng sáng với 77% Galactomyces và Vitamin C thuần, giúp mờ thâm, đều màu da sau 4 tuần.",
         images: [
-            "http://localhost:3000/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg",
         ],
         tags: ["serum", "vitamin c", "dưỡng sáng", "hàn quốc"],
         base_price: 350000,
@@ -162,7 +168,7 @@ const products = [
         description:
             "Toner không mùi dịu nhẹ, cân bằng độ pH, tăng cường hàng rào bảo vệ da, phù hợp da nhạy cảm.",
         images: [
-            "http://localhost:3000/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg",
         ],
         tags: ["toner", "da nhạy cảm", "không mùi", "hàn quốc"],
         base_price: 420000,
@@ -182,7 +188,7 @@ const products = [
         description:
             "Kem chống nắng SPF50+ PA++++ dạng sữa, chống nước, chống mồ hôi, bảo vệ tối đa dưới nắng hè.",
         images: [
-            "http://localhost:3000/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg",
         ],
         tags: ["chống nắng", "spf50+", "nhật bản", "chống nước"],
         base_price: 620000,
@@ -202,7 +208,7 @@ const products = [
         description:
             "Sữa rửa mặt dịu nhẹ với Ceramide và Hyaluronic Acid, làm sạch không làm mất ẩm, được bác sĩ da liễu khuyên dùng.",
         images: [
-            "http://localhost:3000/images/skincare/sua-rua-mat-cerave-hydrating-cleanser-236ml.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/sua-rua-mat-cerave-hydrating-cleanser-236ml.jpg",
         ],
         tags: ["sữa rửa mặt", "ceramide", "da khô", "mỹ"],
         base_price: 290000,
@@ -222,7 +228,7 @@ const products = [
         description:
             "Mặt nạ đất sét núi lửa giúp loại bỏ bã nhờn, thu nhỏ lỗ chân lông, làm sạch sâu chỉ trong 10 phút.",
         images: [
-            "http://localhost:3000/images/skincare/mat-na-dat-set-innisfree-8.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/mat-na-dat-set-innisfree-8.jpg",
         ],
         tags: ["mặt nạ", "đất sét", "lỗ chân lông", "hàn quốc"],
         base_price: 250000,
@@ -242,7 +248,7 @@ const products = [
         description:
             "Essence nước thần huyền thoại với 90% Pitera™, giúp tái tạo da, mờ thâm nám và căng bóng rạng rỡ.",
         images: [
-            "http://localhost:3000/images/skincare/nuoc-than-skii-230ml_3503993879544c3387c27305bad0d396.png",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/nuoc-than-skii-230ml_3503993879544c3387c27305bad0d396.png",
         ],
         tags: ["essence", "pitera", "cao cấp", "nhật bản"],
         base_price: 2800000,
@@ -262,7 +268,7 @@ const products = [
         description:
             "Dung dịch chứa 5% Caffeine và EGCG giúp giảm quầng thâm, bọng mắt và dấu hiệu mệt mỏi quanh vùng mắt.",
         images: [
-            "http://localhost:3000/images/skincare/TO-7.3.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/skincare/TO-7.3.jpg",
         ],
         tags: ["kem mắt", "caffeine", "quầng thâm", "canada"],
         base_price: 310000,
@@ -282,7 +288,7 @@ const products = [
         description:
             "Son kem lì siêu mịn, không khô môi, lên màu chuẩn chỉ với một lớp, bền màu suốt 8 tiếng.",
         images: [
-            "http://localhost:3000/images/cosmetics/Son-Black-Rouge-A06.jpg",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/Son-Black-Rouge-A06.jpg",
         ],
         tags: ["son môi", "lì", "lâu trôi", "hàn quốc"],
         base_price: 185000,
@@ -302,7 +308,7 @@ const products = [
         description:
             "Cushion lì kiểm soát dầu, che phủ hoàn hảo, giữ lớp trang điểm bền vẹn cả ngày dài trong thời tiết nóng ẩm.",
         images: [
-            "http://localhost:3000/images/cosmetics/_hq__neo_social-cut_04_specs_1st__1080_1080__240530_1.webp",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/_hq__neo_social-cut_04_specs_1st__1080_1080__240530_1.webp",
         ],
         tags: ["cushion", "lì", "kiểm soát dầu", "hàn quốc"],
         base_price: 760000,
@@ -322,7 +328,7 @@ const products = [
         description:
             "Mascara chống nước với cọ uốn cong độc đáo, tạo mi dài và cong vút từ gốc tới ngọn không vón cục.",
         images: [
-            "http://localhost:3000/images/cosmetics/lash-sensational-sky-high-mascara_1.webp",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/lash-sensational-sky-high-mascara_1.webp",
         ],
         tags: ["mascara", "chống nước", "dài mi", "mỹ"],
         base_price: 220000,
@@ -342,7 +348,7 @@ const products = [
         description:
             "Phấn phủ dạng bột mịn tạo hiệu ứng ánh sáng tự nhiên, cố định lớp nền, kiểm soát dầu nhẹ nhàng suốt cả ngày.",
         images: [
-            "http://localhost:3000/images/cosmetics/a5a548c0-a308-11ea-a25e-1fe2302d1d5c.png",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/a5a548c0-a308-11ea-a25e-1fe2302d1d5c.png",
         ],
         tags: ["phấn phủ", "bột", "kiểm soát dầu", "cao cấp"],
         base_price: 1150000,
@@ -362,7 +368,7 @@ const products = [
         description:
             "Kem nền lì với 50+ tông màu, độ che phủ vừa đến cao, kiểm soát dầu 24 giờ, không tắc lỗ chân lông.",
         images: [
-            "http://localhost:3000/images/cosmetics/D_anm_i-196_d1b81d98-1c3b-4ec5-8a2e-10b3d2b3fcaa.webp",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/D_anm_i-196_d1b81d98-1c3b-4ec5-8a2e-10b3d2b3fcaa.webp",
         ],
         tags: ["kem nền", "lì", "50 shade", "che phủ cao"],
         base_price: 980000,
@@ -382,7 +388,7 @@ const products = [
         description:
             "Bảng 35 màu mắt tông đất, kết hợp màu matte và nhũ, dễ pha trộn, phù hợp từ trang điểm nhẹ nhàng đến khói.",
         images: [
-            "http://localhost:3000/images/cosmetics/b2e13e5f-7dea-4a4f-8e8f-5fef30e759af.webp",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/b2e13e5f-7dea-4a4f-8e8f-5fef30e759af.webp",
         ],
         tags: ["mắt", "bảng phấn", "tông đất", "35 màu"],
         base_price: 650000,
@@ -402,7 +408,7 @@ const products = [
         description:
             "Highlight dạng nén với hiệu ứng ánh ngọc trai mịn màng, tạo vùng sáng tự nhiên không bị glitter thô.",
         images: [
-            "http://localhost:3000/images/cosmetics/phan-bat-sang-highlight-smashbox-x-becca-shimmering-skin-perfector-mau-moonstone-64ccaf1378b26-04082023145603.webp",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/phan-bat-sang-highlight-smashbox-x-becca-shimmering-skin-perfector-mau-moonstone-64ccaf1378b26-04082023145603.webp",
         ],
         tags: ["highlight", "ánh ngọc trai", "contouring", "cao cấp"],
         base_price: 820000,
@@ -422,7 +428,7 @@ const products = [
         description:
             "Phấn má hồng tông nude hồng nhẹ nhàng, kết hợp shimmer mịn giúp da ửng hồng tự nhiên và rạng rỡ cả ngày.",
         images: [
-            "http://localhost:3000/images/cosmetics/455063135-2804805279676433-5304769177919792876-n.webp",
+            "https://cosmetics-production-e502.up.railway.app/images/cosmetics/455063135-2804805279676433-5304769177919792876-n.webp",
         ],
         tags: ["má hồng", "nude", "tự nhiên", "mỹ"],
         base_price: 720000,
@@ -436,81 +442,499 @@ const products = [
 ];
 
 const variants = [
-    { id: "var-001", product_id: "prod-001", sku: "LGW-50ML", name: "50ml", shade: null, size: "50ml", price: 890000, sale_price: null, stock: 45, image_url: "/images/variants/prod-001-50ml.jpg", is_default: true },
-    { id: "var-002", product_id: "prod-001", sku: "LGW-100ML", name: "100ml", shade: null, size: "100ml", price: 1450000, sale_price: 1300000, stock: 20, image_url: "/images/variants/prod-001-100ml.jpg", is_default: false },
-    { id: "var-003", product_id: "prod-002", sku: "SBM-VC-30ML", name: "30ml", shade: null, size: "30ml", price: 350000, sale_price: null, stock: 60, image_url: "/images/variants/prod-002-30ml.jpg", is_default: true },
-    { id: "var-004", product_id: "prod-002", sku: "SBM-VC-50ML", name: "50ml", shade: null, size: "50ml", price: 520000, sale_price: 480000, stock: 30, image_url: "/images/variants/prod-002-50ml.jpg", is_default: false },
-    { id: "var-005", product_id: "prod-003", sku: "KLR-180ML", name: "180ml", shade: null, size: "180ml", price: 420000, sale_price: null, stock: 55, image_url: "/images/variants/prod-003-180ml.jpg", is_default: true },
-    { id: "var-006", product_id: "prod-003", sku: "KLR-320ML", name: "320ml", shade: null, size: "320ml", price: 680000, sale_price: 620000, stock: 25, image_url: "/images/variants/prod-003-320ml.jpg", is_default: false },
-    { id: "var-007", product_id: "prod-004", sku: "ANS-60ML", name: "60ml", shade: null, size: "60ml", price: 620000, sale_price: null, stock: 80, image_url: "/images/variants/prod-004-60ml.jpg", is_default: true },
-    { id: "var-008", product_id: "prod-004", sku: "ANS-90ML", name: "90ml", shade: null, size: "90ml", price: 850000, sale_price: 780000, stock: 35, image_url: "/images/variants/prod-004-90ml.jpg", is_default: false },
-    { id: "var-009", product_id: "prod-005", sku: "CVH-236ML", name: "236ml", shade: null, size: "236ml", price: 290000, sale_price: null, stock: 90, image_url: "/images/variants/prod-005-236ml.jpg", is_default: true },
-    { id: "var-010", product_id: "prod-005", sku: "CVH-473ML", name: "473ml", shade: null, size: "473ml", price: 480000, sale_price: 440000, stock: 40, image_url: "/images/variants/prod-005-473ml.jpg", is_default: false },
-    { id: "var-011", product_id: "prod-006", sku: "INF-100ML", name: "100ml", shade: null, size: "100ml", price: 250000, sale_price: null, stock: 70, image_url: "/images/variants/prod-006-100ml.jpg", is_default: true },
-    { id: "var-012", product_id: "prod-006", sku: "INF-200ML", name: "200ml", shade: null, size: "200ml", price: 420000, sale_price: 380000, stock: 30, image_url: "/images/variants/prod-006-200ml.jpg", is_default: false },
-    { id: "var-013", product_id: "prod-007", sku: "SKII-75ML", name: "75ml", shade: null, size: "75ml", price: 2800000, sale_price: null, stock: 15, image_url: "/images/variants/prod-007-75ml.jpg", is_default: true },
-    { id: "var-014", product_id: "prod-007", sku: "SKII-160ML", name: "160ml", shade: null, size: "160ml", price: 5200000, sale_price: 4900000, stock: 8, image_url: "/images/variants/prod-007-160ml.jpg", is_default: false },
-    { id: "var-015", product_id: "prod-008", sku: "TOC-30ML", name: "30ml", shade: null, size: "30ml", price: 310000, sale_price: null, stock: 50, image_url: "/images/variants/prod-008-30ml.jpg", is_default: true },
-    { id: "var-016", product_id: "prod-009", sku: "BR-A01", name: "A01 Soft Pink", shade: "A01", size: null, price: 185000, sale_price: 165000, stock: 100, image_url: "/images/variants/prod-009-a01.jpg", is_default: true },
-    { id: "var-017", product_id: "prod-009", sku: "BR-R02", name: "R02 Cherry Red", shade: "R02", size: null, price: 185000, sale_price: null, stock: 80, image_url: "/images/variants/prod-009-r02.jpg", is_default: false },
-    { id: "var-018", product_id: "prod-009", sku: "BR-B05", name: "B05 Wine Berry", shade: "B05", size: null, price: 185000, sale_price: null, stock: 65, image_url: "/images/variants/prod-009-b05.jpg", is_default: false },
-    { id: "var-019", product_id: "prod-010", sku: "LGC-21N", name: "21N Beige", shade: "21N", size: null, price: 760000, sale_price: null, stock: 40, image_url: "/images/variants/prod-010-21n.jpg", is_default: true },
-    { id: "var-020", product_id: "prod-010", sku: "LGC-23C", name: "23C Cool Beige", shade: "23C", size: null, price: 760000, sale_price: null, stock: 38, image_url: "/images/variants/prod-010-23c.jpg", is_default: false },
-    { id: "var-021", product_id: "prod-010", sku: "LGC-25N", name: "25N Natural Beige", shade: "25N", size: null, price: 760000, sale_price: 690000, stock: 30, image_url: "/images/variants/prod-010-25n.jpg", is_default: false },
-    { id: "var-022", product_id: "prod-011", sku: "MBL-BLACK", name: "Blackest Black", shade: "Blackest Black", size: null, price: 220000, sale_price: 195000, stock: 120, image_url: "/images/variants/prod-011-black.jpg", is_default: true },
-    { id: "var-023", product_id: "prod-011", sku: "MBL-BROWN", name: "Brownish Black", shade: "Brownish Black", size: null, price: 220000, sale_price: null, stock: 60, image_url: "/images/variants/prod-011-brown.jpg", is_default: false },
-    { id: "var-024", product_id: "prod-012", sku: "NRS-CRYSTAL", name: "Crystal", shade: "Crystal", size: null, price: 1150000, sale_price: null, stock: 25, image_url: "/images/variants/prod-012-crystal.jpg", is_default: true },
-    { id: "var-025", product_id: "prod-012", sku: "NRS-MOONRISE", name: "Moonrise", shade: "Moonrise", size: null, price: 1150000, sale_price: 1050000, stock: 18, image_url: "/images/variants/prod-012-moonrise.jpg", is_default: false },
-    { id: "var-026", product_id: "prod-013", sku: "FBP-120W", name: "120W Alabaster", shade: "120W", size: null, price: 980000, sale_price: null, stock: 20, image_url: "/images/variants/prod-013-120w.jpg", is_default: false },
-    { id: "var-027", product_id: "prod-013", sku: "FBP-235N", name: "235N Almond", shade: "235N", size: null, price: 980000, sale_price: null, stock: 30, image_url: "/images/variants/prod-013-235n.jpg", is_default: true },
-    { id: "var-028", product_id: "prod-013", sku: "FBP-385C", name: "385C Chocolate Truffle", shade: "385C", size: null, price: 980000, sale_price: 890000, stock: 15, image_url: "/images/variants/prod-013-385c.jpg", is_default: false },
-    { id: "var-029", product_id: "prod-014", sku: "MPH-35O", name: "35O Nature Glow", shade: "35O", size: null, price: 650000, sale_price: 580000, stock: 35, image_url: "/images/variants/prod-014-35o.jpg", is_default: true },
-    { id: "var-030", product_id: "prod-015", sku: "BCC-CHAMPAGNE", name: "Champagne Pop", shade: "Champagne Pop", size: null, price: 820000, sale_price: null, stock: 28, image_url: "/images/variants/prod-015-champagne.jpg", is_default: true },
-    { id: "var-031", product_id: "prod-015", sku: "BCC-OPAL", name: "Opal", shade: "Opal", size: null, price: 820000, sale_price: 750000, stock: 20, image_url: "/images/variants/prod-015-opal.jpg", is_default: false },
-    { id: "var-032", product_id: "prod-016", sku: "BNF-DNDN", name: "Dandelion", shade: "Dandelion", size: null, price: 720000, sale_price: null, stock: 42, image_url: "/images/variants/prod-016-dandelion.jpg", is_default: true },
-    { id: "var-033", product_id: "prod-016", sku: "BNF-MINI", name: "Dandelion Mini", shade: "Dandelion", size: "mini", price: 450000, sale_price: 410000, stock: 55, image_url: "/images/variants/prod-016-mini.jpg", is_default: false },
+    {
+        id: "var-001",
+        product_id: "prod-001",
+        sku: "LGW-50ML",
+        name: "50ml",
+        shade: null,
+        size: "50ml",
+        price: 890000,
+        sale_price: null,
+        stock: 45,
+        image_url: "/images/variants/prod-001-50ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-002",
+        product_id: "prod-001",
+        sku: "LGW-100ML",
+        name: "100ml",
+        shade: null,
+        size: "100ml",
+        price: 1450000,
+        sale_price: 1300000,
+        stock: 20,
+        image_url: "/images/variants/prod-001-100ml.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-003",
+        product_id: "prod-002",
+        sku: "SBM-VC-30ML",
+        name: "30ml",
+        shade: null,
+        size: "30ml",
+        price: 350000,
+        sale_price: null,
+        stock: 60,
+        image_url: "/images/variants/prod-002-30ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-004",
+        product_id: "prod-002",
+        sku: "SBM-VC-50ML",
+        name: "50ml",
+        shade: null,
+        size: "50ml",
+        price: 520000,
+        sale_price: 480000,
+        stock: 30,
+        image_url: "/images/variants/prod-002-50ml.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-005",
+        product_id: "prod-003",
+        sku: "KLR-180ML",
+        name: "180ml",
+        shade: null,
+        size: "180ml",
+        price: 420000,
+        sale_price: null,
+        stock: 55,
+        image_url: "/images/variants/prod-003-180ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-006",
+        product_id: "prod-003",
+        sku: "KLR-320ML",
+        name: "320ml",
+        shade: null,
+        size: "320ml",
+        price: 680000,
+        sale_price: 620000,
+        stock: 25,
+        image_url: "/images/variants/prod-003-320ml.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-007",
+        product_id: "prod-004",
+        sku: "ANS-60ML",
+        name: "60ml",
+        shade: null,
+        size: "60ml",
+        price: 620000,
+        sale_price: null,
+        stock: 80,
+        image_url: "/images/variants/prod-004-60ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-008",
+        product_id: "prod-004",
+        sku: "ANS-90ML",
+        name: "90ml",
+        shade: null,
+        size: "90ml",
+        price: 850000,
+        sale_price: 780000,
+        stock: 35,
+        image_url: "/images/variants/prod-004-90ml.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-009",
+        product_id: "prod-005",
+        sku: "CVH-236ML",
+        name: "236ml",
+        shade: null,
+        size: "236ml",
+        price: 290000,
+        sale_price: null,
+        stock: 90,
+        image_url: "/images/variants/prod-005-236ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-010",
+        product_id: "prod-005",
+        sku: "CVH-473ML",
+        name: "473ml",
+        shade: null,
+        size: "473ml",
+        price: 480000,
+        sale_price: 440000,
+        stock: 40,
+        image_url: "/images/variants/prod-005-473ml.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-011",
+        product_id: "prod-006",
+        sku: "INF-100ML",
+        name: "100ml",
+        shade: null,
+        size: "100ml",
+        price: 250000,
+        sale_price: null,
+        stock: 70,
+        image_url: "/images/variants/prod-006-100ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-012",
+        product_id: "prod-006",
+        sku: "INF-200ML",
+        name: "200ml",
+        shade: null,
+        size: "200ml",
+        price: 420000,
+        sale_price: 380000,
+        stock: 30,
+        image_url: "/images/variants/prod-006-200ml.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-013",
+        product_id: "prod-007",
+        sku: "SKII-75ML",
+        name: "75ml",
+        shade: null,
+        size: "75ml",
+        price: 2800000,
+        sale_price: null,
+        stock: 15,
+        image_url: "/images/variants/prod-007-75ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-014",
+        product_id: "prod-007",
+        sku: "SKII-160ML",
+        name: "160ml",
+        shade: null,
+        size: "160ml",
+        price: 5200000,
+        sale_price: 4900000,
+        stock: 8,
+        image_url: "/images/variants/prod-007-160ml.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-015",
+        product_id: "prod-008",
+        sku: "TOC-30ML",
+        name: "30ml",
+        shade: null,
+        size: "30ml",
+        price: 310000,
+        sale_price: null,
+        stock: 50,
+        image_url: "/images/variants/prod-008-30ml.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-016",
+        product_id: "prod-009",
+        sku: "BR-A01",
+        name: "A01 Soft Pink",
+        shade: "A01",
+        size: null,
+        price: 185000,
+        sale_price: 165000,
+        stock: 100,
+        image_url: "/images/variants/prod-009-a01.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-017",
+        product_id: "prod-009",
+        sku: "BR-R02",
+        name: "R02 Cherry Red",
+        shade: "R02",
+        size: null,
+        price: 185000,
+        sale_price: null,
+        stock: 80,
+        image_url: "/images/variants/prod-009-r02.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-018",
+        product_id: "prod-009",
+        sku: "BR-B05",
+        name: "B05 Wine Berry",
+        shade: "B05",
+        size: null,
+        price: 185000,
+        sale_price: null,
+        stock: 65,
+        image_url: "/images/variants/prod-009-b05.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-019",
+        product_id: "prod-010",
+        sku: "LGC-21N",
+        name: "21N Beige",
+        shade: "21N",
+        size: null,
+        price: 760000,
+        sale_price: null,
+        stock: 40,
+        image_url: "/images/variants/prod-010-21n.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-020",
+        product_id: "prod-010",
+        sku: "LGC-23C",
+        name: "23C Cool Beige",
+        shade: "23C",
+        size: null,
+        price: 760000,
+        sale_price: null,
+        stock: 38,
+        image_url: "/images/variants/prod-010-23c.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-021",
+        product_id: "prod-010",
+        sku: "LGC-25N",
+        name: "25N Natural Beige",
+        shade: "25N",
+        size: null,
+        price: 760000,
+        sale_price: 690000,
+        stock: 30,
+        image_url: "/images/variants/prod-010-25n.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-022",
+        product_id: "prod-011",
+        sku: "MBL-BLACK",
+        name: "Blackest Black",
+        shade: "Blackest Black",
+        size: null,
+        price: 220000,
+        sale_price: 195000,
+        stock: 120,
+        image_url: "/images/variants/prod-011-black.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-023",
+        product_id: "prod-011",
+        sku: "MBL-BROWN",
+        name: "Brownish Black",
+        shade: "Brownish Black",
+        size: null,
+        price: 220000,
+        sale_price: null,
+        stock: 60,
+        image_url: "/images/variants/prod-011-brown.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-024",
+        product_id: "prod-012",
+        sku: "NRS-CRYSTAL",
+        name: "Crystal",
+        shade: "Crystal",
+        size: null,
+        price: 1150000,
+        sale_price: null,
+        stock: 25,
+        image_url: "/images/variants/prod-012-crystal.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-025",
+        product_id: "prod-012",
+        sku: "NRS-MOONRISE",
+        name: "Moonrise",
+        shade: "Moonrise",
+        size: null,
+        price: 1150000,
+        sale_price: 1050000,
+        stock: 18,
+        image_url: "/images/variants/prod-012-moonrise.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-026",
+        product_id: "prod-013",
+        sku: "FBP-120W",
+        name: "120W Alabaster",
+        shade: "120W",
+        size: null,
+        price: 980000,
+        sale_price: null,
+        stock: 20,
+        image_url: "/images/variants/prod-013-120w.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-027",
+        product_id: "prod-013",
+        sku: "FBP-235N",
+        name: "235N Almond",
+        shade: "235N",
+        size: null,
+        price: 980000,
+        sale_price: null,
+        stock: 30,
+        image_url: "/images/variants/prod-013-235n.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-028",
+        product_id: "prod-013",
+        sku: "FBP-385C",
+        name: "385C Chocolate Truffle",
+        shade: "385C",
+        size: null,
+        price: 980000,
+        sale_price: 890000,
+        stock: 15,
+        image_url: "/images/variants/prod-013-385c.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-029",
+        product_id: "prod-014",
+        sku: "MPH-35O",
+        name: "35O Nature Glow",
+        shade: "35O",
+        size: null,
+        price: 650000,
+        sale_price: 580000,
+        stock: 35,
+        image_url: "/images/variants/prod-014-35o.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-030",
+        product_id: "prod-015",
+        sku: "BCC-CHAMPAGNE",
+        name: "Champagne Pop",
+        shade: "Champagne Pop",
+        size: null,
+        price: 820000,
+        sale_price: null,
+        stock: 28,
+        image_url: "/images/variants/prod-015-champagne.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-031",
+        product_id: "prod-015",
+        sku: "BCC-OPAL",
+        name: "Opal",
+        shade: "Opal",
+        size: null,
+        price: 820000,
+        sale_price: 750000,
+        stock: 20,
+        image_url: "/images/variants/prod-015-opal.jpg",
+        is_default: false,
+    },
+    {
+        id: "var-032",
+        product_id: "prod-016",
+        sku: "BNF-DNDN",
+        name: "Dandelion",
+        shade: "Dandelion",
+        size: null,
+        price: 720000,
+        sale_price: null,
+        stock: 42,
+        image_url: "/images/variants/prod-016-dandelion.jpg",
+        is_default: true,
+    },
+    {
+        id: "var-033",
+        product_id: "prod-016",
+        sku: "BNF-MINI",
+        name: "Dandelion Mini",
+        shade: "Dandelion",
+        size: "mini",
+        price: 450000,
+        sale_price: 410000,
+        stock: 55,
+        image_url: "/images/variants/prod-016-mini.jpg",
+        is_default: false,
+    },
 ];
 
 const users = [
-    { id: 1, username: "minhtan111293", email: "minhtan111293@gmail.com", password: "123", role: "admin" },
-    { id: 2, username: "ty", email: "ty@gmail.com", password: "123", role: "user" }
+    {
+        id: 1,
+        username: "minhtan111293",
+        email: "minhtan111293@gmail.com",
+        password: "123",
+        role: "admin",
+    },
+    {
+        id: 2,
+        username: "ty",
+        email: "ty@gmail.com",
+        password: "123",
+        role: "user",
+    },
 ];
 
 // Lấy tất cả danh mục
-app.get('/api/categories', (req, res) => {
+app.get("/api/categories", (req, res) => {
     res.json(categories);
 });
 
 // Lấy tất cả sản phẩm kèm tên danh mục và variants
-app.get('/api/products', (req, res) => {
-    const productsWithCategory = products.map(product => {
-        const category = categories.find(cat => cat.id === product.category_id);
-        const productVariants = variants.filter(v => v.product_id === product.id);
-        return { ...product, category_name: category ? category.name : null, variants: productVariants };
+app.get("/api/products", (req, res) => {
+    const productsWithCategory = products.map((product) => {
+        const category = categories.find((cat) => cat.id === product.category_id);
+        const productVariants = variants.filter((v) => v.product_id === product.id);
+        return {
+            ...product,
+            category_name: category ? category.name : null,
+            variants: productVariants,
+        };
     });
     res.json(productsWithCategory);
 });
 
 // Lấy một sản phẩm dựa vào slug kèm category và variants
-app.get('/api/products/:slug', (req, res) => {
-    const product = products.find(p => p.slug === req.params.slug);
+app.get("/api/products/:slug", (req, res) => {
+    const product = products.find((p) => p.slug === req.params.slug);
     if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
+        return res.status(404).json({ message: "Product not found" });
     }
-    const category = categories.find(cat => cat.id === product.category_id);
-    const productVariants = variants.filter(v => v.product_id === product.id);
-    res.json({ ...product, category_name: category ? category.name : null, variants: productVariants });
+    const category = categories.find((cat) => cat.id === product.category_id);
+    const productVariants = variants.filter((v) => v.product_id === product.id);
+    res.json({
+        ...product,
+        category_name: category ? category.name : null,
+        variants: productVariants,
+    });
 });
 
 // Lấy sản phẩm liên quan dựa vào slug kèm variants
-app.get('/api/productsrelated/:slug', (req, res) => {
-    const product = products.find(p => p.slug === req.params.slug);
+app.get("/api/productsrelated/:slug", (req, res) => {
+    const product = products.find((p) => p.slug === req.params.slug);
     if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
+        return res.status(404).json({ message: "Product not found" });
     }
-    const relatedProducts = products.filter(p => p.category_id === product.category_id && p.slug !== product.slug);
-    const relatedProductsWithVariants = relatedProducts.map(p => {
-        const productVariants = variants.filter(v => v.product_id === p.id);
+    const relatedProducts = products.filter(
+        (p) => p.category_id === product.category_id && p.slug !== product.slug,
+    );
+    const relatedProductsWithVariants = relatedProducts.map((p) => {
+        const productVariants = variants.filter((v) => v.product_id === p.id);
         return { ...p, variants: productVariants };
     });
     res.json(relatedProductsWithVariants);
@@ -520,7 +944,7 @@ app.get('/api/productsrelated/:slug', (req, res) => {
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
-        const token = authHeader.split(' ')[1];
+        const token = authHeader.split(" ")[1];
         jwt.verify(token, JWT_SECRET, (err, user) => {
             if (err) {
                 return res.sendStatus(403);
@@ -534,130 +958,108 @@ const authenticateJWT = (req, res, next) => {
 };
 
 // API Đăng ký (Signup)
-app.post('/api/signup', (req, res) => {
+app.post("/api/signup", (req, res) => {
     const { username, email, password } = req.body;
-    if (users.find(user => user.email === email)) {
-        return res.status(409).json({ message: 'Email already exists' });
+    if (users.find((user) => user.email === email)) {
+        return res.status(409).json({ message: "Email already exists" });
     }
-    const newUser = { username, email, password, role: 'user' };
+    const newUser = { username, email, password, role: "user" };
     users.push(newUser);
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({ message: "User registered successfully" });
 });
 
 // API Đăng nhập (Login)
-app.post('/api/login', (req, res) => {
+app.post("/api/login", (req, res) => {
     const { email, password } = req.body;
-    const user = users.find(user => user.email === email);
-    console.log('Login attempt:', email, password);
+    const user = users.find((user) => user.email === email);
+    console.log("Login attempt:", email, password);
     if (!user || user.password !== password) {
-        return res.status(401).json({ message: 'Invalid email or password' });
+        return res.status(401).json({ message: "Invalid email or password" });
     }
     req.user = user;
-    const accessToken = jwt.sign({ username: user.username, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token: accessToken, user: { username: user.username, email: user.email, role: user.role } });
+    const accessToken = jwt.sign(
+        { username: user.username, email: user.email, role: user.role },
+        JWT_SECRET,
+        { expiresIn: "1h" },
+    );
+    res.json({
+        token: accessToken,
+        user: { username: user.username, email: user.email, role: user.role },
+    });
 });
 
-app.get('/api/profile', authenticateJWT, (req, res) => {
-    res.json({ username: req.user.username, email: req.user.email, role: req.user.role });
+app.get("/api/profile", authenticateJWT, (req, res) => {
+    res.json({
+        username: req.user.username,
+        email: req.user.email,
+        role: req.user.role,
+    });
 });
 
 // Lấy tất cả users (chỉ dành cho admin)
-app.get('/api/users', authenticateJWT, (req, res) => {
-    if (req.user.role !== 'admin') {
+app.get("/api/users", authenticateJWT, (req, res) => {
+    if (req.user.role !== "admin") {
         return res.sendStatus(403);
     }
     res.json(users);
 });
 
 // Cập nhật vai trò người dùng (chỉ dành cho admin)
-app.patch('/api/users/:id/role', authenticateJWT, (req, res) => {
-    if (req.user.role !== 'admin') {
+app.patch("/api/users/:id/role", authenticateJWT, (req, res) => {
+    if (req.user.role !== "admin") {
         return res.sendStatus(403);
     }
     const userId = parseInt(req.params.id, 10);
     const { role } = req.body;
-    if (!['admin', 'user'].includes(role)) {
-        return res.status(400).json({ message: 'Invalid role' });
+    if (!["admin", "user"].includes(role)) {
+        return res.status(400).json({ message: "Invalid role" });
     }
-    const user = users.find(u => u.id === userId);
+    const user = users.find((u) => u.id === userId);
     if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: "User not found" });
     }
     user.role = role;
-    res.json({ id: user.id, username: user.username, email: user.email, role: user.role });
+    res.json({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+    });
 });
 
 // Lấy tất cả đơn hàng (chỉ dành cho admin)
-app.get('/api/orders', authenticateJWT, (req, res) => {
-    if (req.user.role !== 'admin') {
+app.get("/api/orders", authenticateJWT, (req, res) => {
+    if (req.user.role !== "admin") {
         return res.sendStatus(403);
     }
     res.json(orders);
 });
 
 // Thêm đơn hàng mới (dành cho người dùng đã đăng nhập)
-app.post('/api/orders', authenticateJWT, (req, res) => {
+app.post("/api/orders", authenticateJWT, (req, res) => {
     const { items, total_price } = req.body;
     if (!items || !total_price) {
-        return res.status(400).json({ message: 'Items and total price are required' });
+        return res
+            .status(400)
+            .json({ message: "Items and total price are required" });
     }
-    //     {
-    //     "id": "ORD-MOPXTKHZ",
-    //     "date": "2026-05-03T15:40:47.495Z",
-    //     "items": [
-    //         {
-    //             "productName": "Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic",
-    //             "variantName": "50ml",
-    //             "shade": null,
-    //             "quantity": 12,
-    //             "price": 890000,
-    //             "image": "http://localhost:3000/images/skincare/z5474593515507_a0de5c22db8739157b43b02960591bca-25052024122828.jpg"
-    //         },
-    //         {
-    //             "productName": "Serum Vitamin C Some By Mi Galactomyces Pure Vitamin C Glow",
-    //             "variantName": "30ml",
-    //             "shade": null,
-    //             "quantity": 2,
-    //             "price": 350000,
-    //             "image": "http://localhost:3000/images/skincare/tinh-chat-lam-sang-da-vitamin-c-some-by-mi-30ml_2.jpg"
-    //         },
-    //         {
-    //             "productName": "Toner Klairs Supple Preparation Unscented",
-    //             "variantName": "180ml",
-    //             "shade": null,
-    //             "quantity": 1,
-    //             "price": 420000,
-    //             "image": "http://localhost:3000/images/skincare/nuoc-hoa-hong-khong-mui-klairs-supple-preparation-unscented-toner.jpg"
-    //         },
-    //         {
-    //             "productName": "Kem Chống Nắng Anessa Perfect UV Sunscreen Skincare Milk",
-    //             "variantName": "60ml",
-    //             "shade": null,
-    //             "quantity": 1,
-    //             "price": 620000,
-    //             "image": "http://localhost:3000/images/skincare/sua-chong-nang-anessa-perfect-uv-sunscreen-skincare-milk-60ml_3ee021ee589048ecbb5d8cf98ff2f202.jpg"
-    //         }
-    //     ],
-    //     "shippingInfo": {
-    //         "name": "Tan",
-    //         "phone": "0867052405",
-    //         "address": "HCM",
-    //         "note": ""
-    //     },
-    //     "paymentMethod": "vnpay",
-    //     "subtotal": 12420000,
-    //     "shipping": 0,
-    //     "total": 12420000,
-    //     "status": "Chờ xác nhận"
-    // }
-    const order = { id: `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`, date: new Date(), items, total_price, user_email: req.user.email, status: 'Chờ xác nhận' };
+    const order = {
+        id: `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+        date: new Date(),
+        items,
+        total_price,
+        user_email: req.user.email,
+        status: "Chờ xác nhận",
+    };
     orders.push(order);
-    res.status(201).json({ message: 'Order created successfully', order });
+    res.status(201).json({ message: "Order created successfully", order });
 });
 
 // Lấy đơn hàng của người dùng đã đăng nhập
-app.get('/api/myorders', authenticateJWT, (req, res) => {
-    const userOrders = orders.filter(order => order.user_email === req.user.email);
+app.get("/api/myorders", authenticateJWT, (req, res) => {
+    const userOrders = orders.filter(
+        (order) => order.user_email === req.user.email,
+    );
     res.json(userOrders);
 });
 

@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         port: '3000',
         pathname: '/images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cosmetics-production-e502.up.railway.app',
+        pathname: '/images/**',
+      },
     ],
   },
 };
