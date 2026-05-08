@@ -655,6 +655,12 @@ app.post('/api/orders', authenticateJWT, (req, res) => {
     res.status(201).json({ message: 'Order created successfully', order });
 });
 
+// Lấy đơn hàng của người dùng đã đăng nhập
+app.get('/api/myorders', authenticateJWT, (req, res) => {
+    const userOrders = orders.filter(order => order.user_email === req.user.email);
+    res.json(userOrders);
+});
+
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
