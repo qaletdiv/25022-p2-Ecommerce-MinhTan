@@ -70,7 +70,7 @@ const Footer = () => {
 
                 {/* Bottom */}
                 <div className="mt-20 pt-8 border-t border-pink-200 flex flex-col md:flex-row justify-between items-center text-sm text-pink-600">
-                    <p>© {new Date().getFullYear()} BeautyGlow Cosmetics. Thiết kế bởi Gemini.</p>
+                    <p>© {new Date().getFullYear()} BeautyGlow Cosmetics. Thiết kế bởi Phan Đức Minh Tân.</p>
                     <div className="flex items-center gap-1 mt-4 md:mt-0">
                         <span>Đam mê với</span>
                         <HeartIcon className="w-5 h-5 text-pink-500 fill-pink-500 mx-0.5" />
