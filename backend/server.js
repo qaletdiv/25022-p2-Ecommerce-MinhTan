@@ -1063,6 +1063,47 @@ app.get("/api/myorders", authenticateJWT, (req, res) => {
     res.json(userOrders);
 });
 
+// Thêm sản phẩm mới (chỉ dành cho admin)
+app.post("/api/products", authenticateJWT, (req, res) => {
+    if (req.user.role !== "admin") {
+        return res.sendStatus(403);
+    }
+    const {
+        name,
+        category_id,
+        slug,
+        brand,
+        description,
+        images,
+        tags,
+        base_price,
+        is_featured,
+    } = req.body;
+    if (!name || !category_id || !base_price) {
+        return res.status(400).json({ message: "name, category_id, and base_price are required" });
+    }
+    const now = new Date().toISOString();
+    const product = {
+        id: `prod-0${products.length + 1}`,
+        category_id,
+        name,
+        slug: slug || name.toLowerCase().replace(/\s+/g, "-"),
+        brand: brand || null,
+        description: description || null,
+        images: Array.isArray(images) ? images : [],
+        tags: Array.isArray(tags) ? tags : [],
+        base_price,
+        is_active: true,
+        is_featured: is_featured !== undefined ? is_featured : false,
+        rating: null,
+        review_count: 0,
+        created_at: now,
+        updated_at: now,
+    };
+    products.push(product);
+    res.status(201).json({ message: "Product created successfully", product });
+});
+
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });

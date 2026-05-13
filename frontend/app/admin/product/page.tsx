@@ -1,18 +1,24 @@
 import { Eye } from 'lucide-react';
 import { Product } from '../../types/product';
+import type { Category } from '../../types/category';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import AddProductModal from '../components/AddProductModal';
+
+
 
 export default async function Products() {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
-    const products: Product[] = await data.json();
+    const [productRes, categoryRes] = await Promise.all([
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`),
+    ]);
+    const products: Product[] = await productRes.json();
+    const categories: Category[] = await categoryRes.json();
 
     return (
         <div>
             <div className="flex items-center justify-between mb-6">
                 <h1 className="text-2xl font-bold text-gray-900">Quản lý sản phẩm</h1>
-                <button className="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600 transition-colors">
-                    <span className="text-lg leading-none">+</span> Thêm sản phẩm
-                </button>
+                <AddProductModal categories={categories} />
             </div>
 
             <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
