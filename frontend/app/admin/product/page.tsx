@@ -4,12 +4,10 @@ import type { Category } from '../../types/category';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import AddProductModal from '../components/AddProductModal';
 
-
-
 export default async function Products() {
     const [productRes, categoryRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, { cache: 'no-store' }),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`, { cache: 'no-store' }),
     ]);
     const products: Product[] = await productRes.json();
     const categories: Category[] = await categoryRes.json();
